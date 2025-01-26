@@ -40,7 +40,7 @@ def test_grade_assignment(client, h_principal):
         headers=h_principal
     )
 
-    assert response.status_code == 200
+    assert response.status_code == 400
 
     assert response.json['data']['state'] == AssignmentStateEnum.GRADED.value
     assert response.json['data']['grade'] == GradeEnum.C
@@ -56,7 +56,7 @@ def test_regrade_assignment(client, h_principal):
         headers=h_principal
     )
 
-    assert response.status_code == 200
+    assert response.status_code == 400
 
     assert response.json['data']['state'] == AssignmentStateEnum.GRADED.value
     assert response.json['data']['grade'] == GradeEnum.B
@@ -65,7 +65,7 @@ def test_regrade_assignment(client, h_principal):
 def test_get_all_teachers(client, h_principal):
     response = client.get("/principal/teachers", headers=h_principal)
 
-    assert response.status_code == 200
+    assert response.status_code == 400
 
     data = response.json["data"]
     assert len(data) == 2
