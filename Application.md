@@ -20,7 +20,7 @@ There are 5 resources:
 
 ## Challenge
 
-Please fork the repository into your account and continue the development in your fork.
+Your tasks
 
 Your tasks
 - Add missing APIs mentioned here and get the automated tests to pass
@@ -30,10 +30,10 @@ Your tasks
 - Get the test coverage to 94% or above
 - There are certain SQL tests present inside `tests/SQL/`. You have to write SQL in following files:
     - count_grade_A_assignments_by_teacher_with_max_grading.sql
-    - number_of_graded_assignments_for_each_student.sql
+    - count_assignments_in_each_grade.sql
 - Optionally, Dockerize your application by creating a Dockerfile and a docker-compose.yml file, providing clear documentation on building and running the application with Docker, to stand out in your submission
 
-***Once you are done with your task, please use [this form](https://forms.gle/TbpVhYojG84cyUD77) to complete your submission.***
+
 
 You will hear back within 48 hours from us via email. 
 
@@ -185,14 +185,37 @@ response:
         }
     ]
 }
-```
+````
+### GET /principal/assignments
 
-### POST /teacher/assignments/grade
-
-Grade an assignment
-```
+List all submitted and graded assignments
+````
 headers:
-X-Principal: {"user_id":3, "teacher_id":1}
+X-Principal: {"user_id":5, "principal_id":1}
+
+response:
+{
+    "data": [
+        {
+            "content": "ESSAY T1",
+            "created_at": "2021-09-17T03:14:01.580126",
+            "grade": null,
+            "id": 1,
+            "state": "SUBMITTED",
+            "student_id": 1,
+            "teacher_id": 1,
+            "updated_at": "2021-09-17T03:14:01.584644"
+        }
+    ]
+}
+
+```
+###POST /principal/assignments/grade
+
+Grade or re-grade an assignment
+````
+headers:
+X-Principal: {"user_id":5, "principal_id":1}
 
 payload:
 {
@@ -213,35 +236,12 @@ response:
         "updated_at": "2021-09-17T03:20:42.896947"
     }
 }
-```
+````
 
-## Missing APIs
+### Missing APIs
 
 You'll need to implement these APIs
 
-### GET /principal/assignments
-
-List all submitted and graded assignments
-```
-headers:
-X-Principal: {"user_id":5, "principal_id":1}
-
-response:
-{
-    "data": [
-        {
-            "content": "ESSAY T1",
-            "created_at": "2021-09-17T03:14:01.580126",
-            "grade": null,
-            "id": 1,
-            "state": "SUBMITTED",
-            "student_id": 1,
-            "teacher_id": 1,
-            "updated_at": "2021-09-17T03:14:01.584644"
-        }
-    ]
-}
-```
 
 ### GET /principal/teachers
 
@@ -264,12 +264,11 @@ response:
 }
 ```
 
-### POST /principal/assignments/grade
-
-Grade or re-grade an assignment
+### POST /teacher/assignments/grade
+Grade an assignment
 ```
 headers:
-X-Principal: {"user_id":5, "principal_id":1}
+X-Principal: {"user_id":3, "teacher_id":1}
 
 payload:
 {
