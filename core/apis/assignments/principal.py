@@ -12,10 +12,9 @@ principal_assignments_resources = Blueprint("principal_assignments_resources", _
 @principal_assignments_resources.route("/", methods=["GET"], strict_slashes=False)
 @decorators.authenticate_principal
 def list_assignments(p):
+    """Returns list of assignments"""
     principal_assignments = Assignment.get_assignments_by_principal()
-    principal_assignments_dump = AssignmentSchema().dump(
-        principal_assignments, many=True
-    )
+    principal_assignments_dump = AssignmentSchema().dump(principal_assignments, many=True)
     return APIResponse.respond(data=principal_assignments_dump)
 
 
