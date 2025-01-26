@@ -14,4 +14,4 @@ class Teacher(db.Model):
 
     @classmethod
     def get_all_teachers(cls):
-        return cls.query.all()
+        return cls.query.all(helpers)
