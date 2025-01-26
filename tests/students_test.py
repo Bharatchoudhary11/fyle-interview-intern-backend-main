@@ -1,3 +1,4 @@
+#GET /student/assignments
 def test_get_assignments_student_1(client, h_student_1):
     response = client.get(
         '/student/assignments',
@@ -56,7 +57,7 @@ def test_post_assignment_student_1(client, h_student_1):
     assert data['state'] == 'DRAFT'
     assert data['teacher_id'] is None
 
-
+# POST /student/assignments
 def test_submit_assignment_student_1(client, h_student_1):
     response = client.post(
         '/student/assignments/submit',
@@ -73,7 +74,7 @@ def test_submit_assignment_student_1(client, h_student_1):
     assert data['state'] == 'SUBMITTED'
     assert data['teacher_id'] == 2
 
-
+#Edit an assignment
 def test_assignment_resubmit_error(client, h_student_1):
     response = client.post(
         '/student/assignments/submit',
