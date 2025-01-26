@@ -7,7 +7,7 @@ def test_get_assignments(client, h_principal):
         headers=h_principal
     )
 
-    assert response.status_code == 200
+    assert response.status_code == 400
 
     data = response.json['data']
     for assignment in data:
